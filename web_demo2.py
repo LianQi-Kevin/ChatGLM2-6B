@@ -3,7 +3,7 @@ import streamlit as st
 
 
 st.set_page_config(
-    page_title="ChatGLM2-6b 演示",
+    page_title="ChatGLM2-6B",
     page_icon=":robot:",
     layout='wide'
 )
@@ -11,8 +11,20 @@ st.set_page_config(
 
 @st.cache_resource
 def get_model():
-    tokenizer = AutoTokenizer.from_pretrained("THUDM/chatglm2-6b", trust_remote_code=True)
-    model = AutoModel.from_pretrained("THUDM/chatglm2-6b", trust_remote_code=True).cuda()
+    # tokenizer = AutoTokenizer.from_pretrained("THUDM/chatglm2-6b", trust_remote_code=True)
+    # model = AutoModel.from_pretrained("THUDM/chatglm2-6b", trust_remote_code=True).cuda()
+    tokenizer = AutoTokenizer.from_pretrained(
+        pretrained_model_name_or_path="/root/ChatGLM2-6B/models/ChatGLM2-6B",
+        revision="v1.0",
+        trust_remote_code=True,
+        device="cuda"
+    )
+    model = AutoModel.from_pretrained(
+        pretrained_model_name_or_path="/root/ChatGLM2-6B/models/ChatGLM2-6B",
+        revision="v1.0",
+        trust_remote_code=True,
+        device="cuda"
+    )
     # 多显卡支持，使用下面两行代替上面一行，将num_gpus改为你实际的显卡数量
     # from utils import load_model_on_gpus
     # model = load_model_on_gpus("THUDM/chatglm2-6b", num_gpus=2)
